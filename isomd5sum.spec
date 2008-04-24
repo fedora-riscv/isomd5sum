@@ -3,12 +3,13 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
 Version: 1.0.4
-Release: 1
+Release: 2
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 URL: http://git.fedorahosted.org/git/?p=isomd5sum.git;a=summary
 Source0: http://fedorahosted.org/releases/i/s/isomd5sum/%{name}-%{version}.tar.bz2
+Patch0: isomd5sum-1.0.4-sparc64.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: python-devel popt-devel
 
@@ -28,6 +29,7 @@ implanting and checking.
 
 %prep
 %setup -q
+%patch0 -p1 
 
 %build
 make
@@ -54,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Thu Apr 24 2008 Dennis Gilmore <dennis@ausil.us> - 1:1.0.4-2
+- add patch for making libdir /usr/lib64 for sparc64
+
 * Thu Feb  7 2008 Jeremy Katz <katzj@redhat.com> - 1:1.0.4-1
 - Add man pages from Ryan Finnie (ryan AT finnie DOT org)
 - Use popt in checkisomd5 (Ryan Finnie)
