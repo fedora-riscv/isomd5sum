@@ -3,13 +3,14 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
 Version: 1.0.4
-Release: 2
+Release: 3%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 URL: http://git.fedorahosted.org/git/?p=isomd5sum.git;a=summary
 Source0: http://fedorahosted.org/releases/i/s/isomd5sum/%{name}-%{version}.tar.bz2
 Patch0: isomd5sum-1.0.4-sparc64.patch
+Patch1: isomd5sum-1.0.4-manpage-permissions.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: python-devel popt-devel
 
@@ -30,6 +31,7 @@ implanting and checking.
 %prep
 %setup -q
 %patch0 -p1 
+%patch1 -p1 
 
 %build
 make
@@ -56,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Wed Nov  5 2008 Hans de Goede <hdegoede@redhat.com> - 1:1.0.4-3
+- Fix permission on installed manpages (#469936)
+
 * Thu Apr 24 2008 Dennis Gilmore <dennis@ausil.us> - 1:1.0.4-2
 - add patch for making libdir /usr/lib64 for sparc64
 
