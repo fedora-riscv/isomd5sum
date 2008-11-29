@@ -3,7 +3,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
 Version: 1.0.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1:1.0.4-4
+- Rebuild for Python 2.6
+
 * Wed Nov  5 2008 Hans de Goede <hdegoede@redhat.com> - 1:1.0.4-3
 - Fix permission on installed manpages (#469936)
 
