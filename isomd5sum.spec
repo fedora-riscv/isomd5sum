@@ -1,18 +1,14 @@
-%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
-Version: 1.0.4
-Release: 4%{?dist}
+Version: 1.0.5
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 URL: http://git.fedorahosted.org/git/?p=isomd5sum.git;a=summary
 Source0: http://fedorahosted.org/releases/i/s/isomd5sum/%{name}-%{version}.tar.bz2
-Patch0: isomd5sum-1.0.4-sparc64.patch
-Patch1: isomd5sum-1.0.4-manpage-permissions.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: python-devel popt-devel
+BuildRequires: popt-devel
 
 %description
 The isomd5sum package contains utilities for implanting and verifying
@@ -30,15 +26,13 @@ implanting and checking.
 
 %prep
 %setup -q
-%patch0 -p1 
-%patch1 -p1 
 
 %build
-make
+make checkisomd5 implantisomd5
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -50,7 +44,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/implantisomd5
 /usr/bin/checkisomd5
 %{_mandir}/man*/*
-%{python_sitearch}/pyisomd5sum.so
 
 %files devel
 %defattr(-,root,root,-)
@@ -58,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Thu Jan  8 2009 Jeremy Katz <katzj@redhat.com> - 1:1.0.5-1
+- Don't install the unused python module (#479005)
+
 * Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1:1.0.4-4
 - Rebuild for Python 2.6
 
