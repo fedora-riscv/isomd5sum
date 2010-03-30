@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
-Version: 1.0.5
-Release: 3%{?dist}
+Version: 1.0.6
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -51,6 +51,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Fri Mar 26 2010 Radek Vykydal <rvykydal@redhat.com> - 1:1.0.6-1
+- Add abort check feature (#555107) (dpierce, rvykydal)
+  Changes prototype of exported checkMediaFile function.
+- Fix exit value of checkisomd5 (rvykydal)
+- Remove output to stderr from library (#576251) (bcl)
+- Use separate return value for image not found (#578160) (bcl)
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
