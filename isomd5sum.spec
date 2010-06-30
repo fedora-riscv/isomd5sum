@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
 Version: 1.0.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -18,6 +18,7 @@ an md5sum implanted into an ISO9660 image.
 Summary: Development headers and library for using isomd5sum 
 Group: Development/System
 Requires: %{name} = %{epoch}:%{version}-%{release}
+Provides: %{name}-static = %{epoch}:%{version}-%{release}
 
 %description devel
 This contains header files and a library for working with the isomd5sum
@@ -51,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Wed Jun 30 2010 Michael Schwendt <mschwendt@fedoraproject.org> - 1:1.0.6-2
+- Add virtual -static package to -devel package (#609607).
+
 * Fri Mar 26 2010 Radek Vykydal <rvykydal@redhat.com> - 1:1.0.6-1
 - Add abort check feature (#555107) (dpierce, rvykydal)
   Changes prototype of exported checkMediaFile function.
