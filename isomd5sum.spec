@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
 Version: 1.0.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Fri Apr 8 2011 Radek Vykydal <rvykydal@fedoraproject.org> - 1:1.0.7-1
 - Allocate one more char for string sentinel (#692135) (rvykydal)
 
