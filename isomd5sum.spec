@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
-Version: 1.0.7
-Release: 2%{?dist}
+Version: 1.0.9
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -24,16 +24,23 @@ Provides: %{name}-static = %{epoch}:%{version}-%{release}
 This contains header files and a library for working with the isomd5sum
 implanting and checking.
 
+%package -n python-isomd5sum
+Summary: Python bindings for isomd5sum
+BuildRequires: python-devel
+
+%description -n python-isomd5sum
+Python bindings for isomd5sum
 
 %prep
 %setup -q
 
 %build
-make checkisomd5 implantisomd5
+CFLAGS="$RPM_OPT_FLAGS -Wno-strict-aliasing"; export CFLAGS
+make checkisomd5 implantisomd5 pyisomd5sum.so
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel
+make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -51,7 +58,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*.h
 %{_libdir}/*.a
 
+%files -n python-isomd5sum
+%defattr(-,root,root,-)
+%{python_sitearch}/pyisomd5sum.so
+
 %changelog
+* Fri Mar 09 2012 Brian C. Lane <bcl@redhat.com> 1.0.9-1
+- Add python-isomd5sum package with python bindings
+- Add callback and interrupt support to the python library
+- Add RPM_OPT_FLAGS to CFLAGS and update makefile to use CFLAGS from environment
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
