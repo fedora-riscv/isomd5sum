@@ -1,12 +1,17 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
 Version: 1.0.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 URL: http://git.fedorahosted.org/git/?p=isomd5sum.git;a=summary
-Source0: http://fedorahosted.org/releases/i/s/isomd5sum/%{name}-%{version}.tar.bz2
+# To generate Source0 do:
+# git clone http://git.fedorahosted.org/git/isomd5sum.git
+# cd isomd5sum
+# git checkout %{version}
+# make archive
+Source0: %{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: popt-devel
 
@@ -63,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/pyisomd5sum.so
 
 %changelog
+* Mon Nov 12 2012 Radek Vykydal <rvykydal@fedoraproject.org> - 1:1.0.9-3
+- Add info about obtaining source tarball in .spec file (rvykydal)
+
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
