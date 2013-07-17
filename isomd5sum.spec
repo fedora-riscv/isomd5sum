@@ -1,6 +1,6 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
-Version: 1.0.10
+Version: 1.0.11
 Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/pyisomd5sum.so
 
 %changelog
+* Wed Jul 17 2013 Brian C. Lane <bcl@redhat.com> 1.0.11-1
+- Add aarch64 (#985568) (bcl)
+
 * Tue Feb 26 2013 Brian C. Lane <bcl@redhat.com> 1.0.10-1
 - Fix for gcc type-punned and sizeof pointer warnings. (bcl)
 - Add exit code 2 for user abort (#907600) (bcl)
