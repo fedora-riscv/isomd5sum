@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name: isomd5sum
 Version: 1.0.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/pyisomd5sum.so
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.0.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Wed Jul 17 2013 Brian C. Lane <bcl@redhat.com> 1.0.11-1
 - Add aarch64 (#985568) (bcl)
 
