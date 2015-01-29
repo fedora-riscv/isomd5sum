@@ -5,8 +5,8 @@ Release: 3%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
-URL: http://git.fedorahosted.org/git/?p=isomd5sum.git;a=summary
-Source0: http://fedorahosted.org/releases/i/s/isomd5sum/%{name}-%{version}.tar.bz2
+URL: https://github.com/rhinstaller/isomd5sum
+Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: popt-devel
 
