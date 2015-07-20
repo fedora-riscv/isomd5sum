@@ -1,14 +1,16 @@
 Summary: Utilities for working with md5sum implanted in ISO images
-Name: isomd5sum
+Name:    isomd5sum
 Version: 1.0.12
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 URL: https://github.com/rhinstaller/isomd5sum
+
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+
 BuildRequires: popt-devel
+BuildRequires: python-devel
 
 %description
 The isomd5sum package contains utilities for implanting and verifying
@@ -26,7 +28,6 @@ implanting and checking.
 
 %package -n python-isomd5sum
 Summary: Python bindings for isomd5sum
-BuildRequires: python-devel
 
 %description -n python-isomd5sum
 Python bindings for isomd5sum
@@ -39,30 +40,28 @@ CFLAGS="$RPM_OPT_FLAGS -Wno-strict-aliasing"; export CFLAGS
 make checkisomd5 implantisomd5 pyisomd5sum.so
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
-%doc COPYING
-/usr/bin/implantisomd5
-/usr/bin/checkisomd5
+%license COPYING
+%{_bindir}/implantisomd5
+%{_bindir}/checkisomd5
 %{_mandir}/man*/*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*.h
 %{_libdir}/*.a
 
 %files -n python-isomd5sum
-%defattr(-,root,root,-)
 %{python_sitearch}/pyisomd5sum.so
 
 %changelog
+* Mon Jul 20 2015 Peter Robinson <pbrobinson@fedoraproject.org> 1:1.0.12-6
+- Use github source so it will build
+- Cleanup spec
+- Use %%license
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.0.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
