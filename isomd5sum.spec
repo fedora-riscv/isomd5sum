@@ -1,16 +1,16 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
-Version: 1.0.12
-Release: 6%{?dist}
+Version: 1.1.0
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
-URL: https://github.com/rhinstaller/isomd5sum
 
+Url:     https://github.com/rhinstaller/isomd5sum
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
 
 BuildRequires: popt-devel
-BuildRequires: python-devel
+BuildRequires: python2-devel python3-devel
 
 %description
 The isomd5sum package contains utilities for implanting and verifying
@@ -28,20 +28,40 @@ implanting and checking.
 
 %package -n python-isomd5sum
 Summary: Python bindings for isomd5sum
+Provides: python2-isomd5sum = %{epoch}:%{version}-%{release}
 
 %description -n python-isomd5sum
-Python bindings for isomd5sum
+The isomd5sum package contains utilities for implanting and verifying
+an md5sum implanted into an ISO9660 image.
+
+%package -n python3-isomd5sum
+Summary: Python bindings for isomd5sum
+
+%description -n python3-isomd5sum
+The isomd5sum package contains utilities for implanting and verifying
+an md5sum implanted into an ISO9660 image.
+
 
 %prep
 %setup -q
 
+rm -rf %{py3dir}
+cp -a . %{py3dir}
+
 %build
 CFLAGS="$RPM_OPT_FLAGS -Wno-strict-aliasing"; export CFLAGS
-make checkisomd5 implantisomd5 pyisomd5sum.so
+PYTHON=%{__python2} make checkisomd5 implantisomd5 pyisomd5sum.so
+
+pushd %{py3dir}
+PYTHON=%{__python3} make checkisomd5 implantisomd5 pyisomd5sum.so
+popd
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
+PYTHON=%{__python2} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
 
+pushd %{py3dir}
+PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
+popd
 
 %files
 %license COPYING
@@ -54,9 +74,15 @@ make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
 %{_libdir}/*.a
 
 %files -n python-isomd5sum
-%{python_sitearch}/pyisomd5sum.so
+%{python2_sitearch}/pyisomd5sum.so
+
+%files -n python3-isomd5sum
+%{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Fri Dec 04 2015 Brian C. Lane <bcl@redhat.com> 1.1.0-1
+- New upstream with Python3 support
+
 * Mon Jul 20 2015 Peter Robinson <pbrobinson@fedoraproject.org> 1:1.0.12-6
 - Use github source so it will build
 - Cleanup spec
