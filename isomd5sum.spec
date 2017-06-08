@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
-Version: 1.1.0
-Release: 5%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -80,6 +80,17 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Thu Jun 08 2017 Brian C. Lane <bcl@redhat.com> - 1:1.2.0-1
+- New Version 1.2.0 (bcl)
+- Improve the python test and add a test target to the Makefile (bcl)
+- Improve error handling of libimplantisomd5 (squimrel)
+- Fix popt memory leak and avoid exit in main (squimrel)
+- Add derived clang format and editorconfig (squimrel)
+- Format, constify, castify, decl-at-use code (squimrel)
+- Make libimplantisomd5 use the utilities (squimrel)
+- Implement shared utilities (squimrel)
+- Refactor libcheckisomd5 (squimrel)
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
