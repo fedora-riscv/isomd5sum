@@ -1,6 +1,6 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
@@ -80,6 +80,11 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Fri Jun 09 2017 Brian C. Lane <bcl@redhat.com> - 1:1.2.1-1
+- New Version 1.2.1 (bcl)
+- Let the user pass their own file descriptor (squimrel)
+- Correct format specifiers (squimrel)
+
 * Thu Jun 08 2017 Brian C. Lane <bcl@redhat.com> - 1:1.2.0-1
 - New Version 1.2.0 (bcl)
 - Improve the python test and add a test target to the Makefile (bcl)
