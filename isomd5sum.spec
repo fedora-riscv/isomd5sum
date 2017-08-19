@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -26,11 +26,11 @@ Provides: %{name}-static = %{epoch}:%{version}-%{release}
 This contains header files and a library for working with the isomd5sum
 implanting and checking.
 
-%package -n python-isomd5sum
+%package -n python2-isomd5sum
 Summary: Python bindings for isomd5sum
-Provides: python2-isomd5sum = %{epoch}:%{version}-%{release}
+%{?python_provide:%python_provide python2-isomd5sum}
 
-%description -n python-isomd5sum
+%description -n python2-isomd5sum
 The isomd5sum package contains utilities for implanting and verifying
 an md5sum implanted into an ISO9660 image.
 
@@ -73,13 +73,17 @@ popd
 %{_includedir}/*.h
 %{_libdir}/*.a
 
-%files -n python-isomd5sum
+%files -n python2-isomd5sum
 %{python2_sitearch}/pyisomd5sum.so
 
 %files -n python3-isomd5sum
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.2.1-4
+- Python 2 binary package renamed to python2-isomd5sum
+  See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
