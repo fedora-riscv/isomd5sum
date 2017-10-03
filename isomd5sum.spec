@@ -1,13 +1,15 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 
 Url:     https://github.com/rhinstaller/isomd5sum
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
+
+Patch0:  0001-Fix-aligned-alloc-parameters-and-overflow-on-32bit-s.patch
 
 BuildRequires: popt-devel
 BuildRequires: python2-devel python3-devel
@@ -43,7 +45,7 @@ an md5sum implanted into an ISO9660 image.
 
 
 %prep
-%setup -q
+%autosetup
 
 rm -rf %{py3dir}
 cp -a . %{py3dir}
@@ -80,6 +82,9 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Tue Oct 03 2017 Brian C. Lane <bcl@redhat.com> - 1.2.1-4
+- Fix aligned alloc parameters and overflow on 32bit (#1497458)
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 

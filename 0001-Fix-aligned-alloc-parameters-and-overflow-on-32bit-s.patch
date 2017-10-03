@@ -1,0 +1,73 @@
+From 64c71d7fc28c32ea61bf155bf1503646e4b1bf72 Mon Sep 17 00:00:00 2001
+From: squimrel <squimrel@users.noreply.github.com>
+Date: Wed, 23 Aug 2017 04:21:14 +0000
+Subject: [PATCH] Fix aligned alloc parameters and overflow on 32bit size_t
+
+(cherry picked from commit f802c54f736006566041aeb6a9d741a6d83ce687)
+---
+ libcheckisomd5.c   | 3 ++-
+ libimplantisomd5.c | 3 ++-
+ utilities.c        | 4 ++--
+ 3 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/libcheckisomd5.c b/libcheckisomd5.c
+index b190959..3ec3d88 100644
+--- a/libcheckisomd5.c
++++ b/libcheckisomd5.c
+@@ -49,6 +49,7 @@ static enum isomd5sum_status checkmd5sum(int isofd, checkCallback cb, void *cbda
+         return ISOMD5SUM_CHECK_NOT_FOUND;
+ 
+     const off_t total_size = info->isosize - info->skipsectors * SECTOR_SIZE;
++    const off_t fragment_size = total_size / (info->fragmentcount + 1);
+     if (cb)
+         cb(cbdata, 0, total_size);
+ 
+@@ -85,7 +86,7 @@ static enum isomd5sum_status checkmd5sum(int isofd, checkCallback cb, void *cbda
+ 
+         MD5_Update(&hashctx, buffer, (unsigned int) nread);
+         if (info->fragmentcount) {
+-            const size_t current_fragment = (size_t)(offset * (off_t)(info->fragmentcount + 1) / total_size);
++            const size_t current_fragment = offset / fragment_size;
+             const size_t fragmentsize = FRAGMENT_SUM_SIZE / info->fragmentcount;
+             /* If we're onto the next fragment, calculate the previous sum and check. */
+             if (current_fragment != previous_fragment) {
+diff --git a/libimplantisomd5.c b/libimplantisomd5.c
+index 53801c8..47f21d7 100644
+--- a/libimplantisomd5.c
++++ b/libimplantisomd5.c
+@@ -106,6 +106,7 @@ int implantISOFD(int isofd, int supported, int forceit, int quiet, char **errstr
+     buffer = aligned_alloc(pagesize, buffer_size * sizeof(*buffer));
+ 
+     const off_t total_size = isosize - SKIPSECTORS * SECTOR_SIZE;
++    const off_t fragment_size = total_size / (FRAGMENT_COUNT + 1);
+     size_t previous_fragment = 0UL;
+     off_t offset = 0LL;
+     while (offset < total_size) {
+@@ -115,7 +116,7 @@ int implantISOFD(int isofd, int supported, int forceit, int quiet, char **errstr
+             break;
+ 
+         MD5_Update(&hashctx, buffer, (unsigned int) nread);
+-        const size_t current_fragment = (size_t) offset * (FRAGMENT_COUNT + 1) / (size_t) total_size;
++        const size_t current_fragment = offset / fragment_size;
+         const size_t fragmentsize = FRAGMENT_SUM_SIZE / FRAGMENT_COUNT;
+         /* If we're onto the next fragment, calculate the previous sum and check. */
+         if (current_fragment != previous_fragment) {
+diff --git a/utilities.c b/utilities.c
+index b00337f..cfa84ed 100644
+--- a/utilities.c
++++ b/utilities.c
+@@ -131,9 +131,9 @@ struct volume_info *const parsepvd(const int isofd) {
+     buffer[APPDATA_SIZE - 1] = '\0';
+ 
+     struct volume_info *result = malloc(sizeof(struct volume_info));
+-    result->skipsectors = 20;
++    result->skipsectors = SKIPSECTORS;
+     result->supported = 0;
+-    result->fragmentcount = 20;
++    result->fragmentcount = FRAGMENT_COUNT;
+     result->offset = offset;
+     result->isosize = isosize(aligned_buffer);
+ 
+-- 
+2.13.5
+
