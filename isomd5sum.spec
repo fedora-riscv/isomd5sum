@@ -1,13 +1,15 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
-Version: 1.2.1
-Release: 4%{?dist}
+Version: 1.2.2
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 
 Url:     https://github.com/rhinstaller/isomd5sum
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
+
+Patch0: 0001-Don-t-put-DESTDIR-in-the-isomd5sum.pc-file.patch
 
 BuildRequires: popt-devel
 BuildRequires: python2-devel python3-devel
@@ -43,7 +45,7 @@ an md5sum implanted into an ISO9660 image.
 
 
 %prep
-%setup -q
+%autosetup
 
 rm -rf %{py3dir}
 cp -a . %{py3dir}
@@ -72,6 +74,7 @@ popd
 %files devel
 %{_includedir}/*.h
 %{_libdir}/*.a
+/usr/share/pkgconfig/isomd5sum.pc
 
 %files -n python2-isomd5sum
 %{python2_sitearch}/pyisomd5sum.so
@@ -80,6 +83,17 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Tue Oct 03 2017 Brian C. Lane <bcl@redhat.com> - 1:1.2.2-1
+- Don't put DESTDIR in the isomd5sum.pc file
+- New Version 1.2.2 (bcl)
+- Fix aligned alloc parameters and overflow on 32bit size_t (#1497458) (squimrel)
+- Fix memory leak (squimrel)
+- Add pkgconfig file (squimrel)
+- Remove line-breaks from error messages (squimrel)
+- Make library C++ compatible (squimrel)
+- Constify function signatures (squimrel)
+- Revert checkCallback function signature (squimrel)
+
 * Sat Aug 19 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.2.1-4
 - Python 2 binary package renamed to python2-isomd5sum
   See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
