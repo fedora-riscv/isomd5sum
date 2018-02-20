@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -11,6 +11,7 @@ Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
 
 Patch0: 0001-Don-t-put-DESTDIR-in-the-isomd5sum.pc-file.patch
 
+BuildRequires: gcc
 BuildRequires: popt-devel
 BuildRequires: python2-devel python3-devel
 
@@ -83,6 +84,9 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Mon Feb 19 2018 Brian C. Lane <bcl@redhat.com> - 1.2.2-3
+- Add gcc BuildRequires for future minimal buildroot support
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
