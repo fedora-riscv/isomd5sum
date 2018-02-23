@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -53,6 +53,7 @@ cp -a . %{py3dir}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS -Wno-strict-aliasing"; export CFLAGS
+LDFLAGS="$RPM_LD_FLAGS"; export LDFLAGS
 PYTHON=%{__python2} make checkisomd5 implantisomd5 pyisomd5sum.so
 
 pushd %{py3dir}
@@ -84,6 +85,9 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Fri Feb 23 2018 Florian Weimer <fweimer@redhat.com> - 1:1.2.2-4
+- Use LDFLAGS from redhat-rpm-config
+
 * Mon Feb 19 2018 Brian C. Lane <bcl@redhat.com> - 1.2.2-3
 - Add gcc BuildRequires for future minimal buildroot support
 
