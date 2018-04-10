@@ -1,15 +1,13 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
-Version: 1.2.2
-Release: 4%{?dist}
+Version: 1.2.3
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
 
 Url:     https://github.com/rhinstaller/isomd5sum
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
-
-Patch0: 0001-Don-t-put-DESTDIR-in-the-isomd5sum.pc-file.patch
 
 BuildRequires: gcc
 BuildRequires: popt-devel
@@ -85,6 +83,11 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Tue Apr 10 2018 Brian C. Lane <bcl@redhat.com> - 1:1.2.3-1
+- New Version 1.2.3 (bcl)
+- Fix 32bit bug on large files (squimrel)
+- Don't put DESTDIR in the isomd5sum.pc file (bcl)
+
 * Fri Feb 23 2018 Florian Weimer <fweimer@redhat.com> - 1:1.2.2-4
 - Use LDFLAGS from redhat-rpm-config
 
