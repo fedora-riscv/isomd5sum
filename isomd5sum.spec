@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -83,6 +83,9 @@ popd
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1:1.2.3-2
+- Rebuilt for Python 3.7
+
 * Tue Apr 10 2018 Brian C. Lane <bcl@redhat.com> - 1:1.2.3-1
 - New Version 1.2.3 (bcl)
 - Fix 32bit bug on large files (squimrel)
