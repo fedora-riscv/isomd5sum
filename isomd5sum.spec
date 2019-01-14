@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 License: GPLv2+
 Group: Applications/System
@@ -11,7 +11,7 @@ Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: popt-devel
-BuildRequires: python2-devel python3-devel
+BuildRequires: python3-devel
 
 %description
 The isomd5sum package contains utilities for implanting and verifying
@@ -27,14 +27,6 @@ Provides: %{name}-static = %{epoch}:%{version}-%{release}
 This contains header files and a library for working with the isomd5sum
 implanting and checking.
 
-%package -n python2-isomd5sum
-Summary: Python bindings for isomd5sum
-%{?python_provide:%python_provide python2-isomd5sum}
-
-%description -n python2-isomd5sum
-The isomd5sum package contains utilities for implanting and verifying
-an md5sum implanted into an ISO9660 image.
-
 %package -n python3-isomd5sum
 Summary: Python bindings for isomd5sum
 
@@ -46,24 +38,16 @@ an md5sum implanted into an ISO9660 image.
 %prep
 %autosetup
 
-rm -rf %{py3dir}
-cp -a . %{py3dir}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS -Wno-strict-aliasing"; export CFLAGS
 LDFLAGS="$RPM_LD_FLAGS"; export LDFLAGS
-PYTHON=%{__python2} make checkisomd5 implantisomd5 pyisomd5sum.so
 
-pushd %{py3dir}
 PYTHON=%{__python3} make checkisomd5 implantisomd5 pyisomd5sum.so
-popd
 
 %install
-PYTHON=%{__python2} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
 
-pushd %{py3dir}
 PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel install-python
-popd
 
 %files
 %license COPYING
@@ -76,13 +60,14 @@ popd
 %{_libdir}/*.a
 /usr/share/pkgconfig/isomd5sum.pc
 
-%files -n python2-isomd5sum
-%{python2_sitearch}/pyisomd5sum.so
-
 %files -n python3-isomd5sum
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Mon Jan 14 2019 Miro Hrončok <mhroncok@redhat.com> - 1:1.2.3-4
+- Subpackage python2-isomd5sum has been removed
+  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
