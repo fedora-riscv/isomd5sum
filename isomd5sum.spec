@@ -4,7 +4,6 @@ Version: 1.2.3
 Release: 4%{?dist}
 Epoch: 1
 License: GPLv2+
-Group: Applications/System
 
 Url:     https://github.com/rhinstaller/isomd5sum
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
@@ -19,7 +18,6 @@ an md5sum implanted into an ISO9660 image.
 
 %package devel
 Summary: Development headers and library for using isomd5sum 
-Group: Development/System
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Provides: %{name}-static = %{epoch}:%{version}-%{release}
 
