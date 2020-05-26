@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 1
 License: GPLv2+
 
@@ -62,6 +62,9 @@ PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel insta
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1:1.2.3-9
+- Rebuilt for Python 3.9
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
