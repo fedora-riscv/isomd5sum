@@ -1,0 +1,6 @@
+summary: Basic smoke test
+prepare:
+    how: install
+    package: [genisoimage, coreutils, isomd5sum]
+execute:
+    script: plans/runtest.sh
