@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.3
-Release: 17%{?dist}
+Release: 17.rv64%{?dist}
 Epoch: 1
 License: GPLv2+
 
@@ -56,13 +56,20 @@ PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel insta
 
 %files devel
 %{_includedir}/*.h
+%ifarch riscv64
+/usr/lib/*.a
+%else
 %{_libdir}/*.a
+%endif
 /usr/share/pkgconfig/isomd5sum.pc
 
 %files -n python3-isomd5sum
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Sat Jan 28 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 1:1.2.3-17.rv64
+- Fix .a file path on riscv64.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
