@@ -1,12 +1,14 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.3
-Release: 19%{?dist}
+Release: 19.rv64%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 
 Url:     https://github.com/rhinstaller/isomd5sum
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
+
+Patch0:  isomd5sum-1.2.3-add-riscv64.patch
 
 BuildRequires: gcc
 BuildRequires: popt-devel
@@ -63,6 +65,9 @@ PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel insta
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Mon Apr 17 2023 David Abdurachmanov <davidlt@rivosinc.com> - 1.2.3-19.0.rv64
+- Add support for riscv64
+
 * Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 1.2.3-19
 - SPDX migration
 

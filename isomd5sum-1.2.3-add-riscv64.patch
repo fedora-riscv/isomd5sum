@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index c98cf35..a601e78 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,7 +4,7 @@ PYTHONINCLUDE := $(shell $(PYTHON)-config --includes)
+ 
+ VERSION=1.2.3
+ 
+-ifneq (,$(filter sparc64 ppc64 ppc64le x86_64 s390x aarch64,$(shell uname -m)))
++ifneq (,$(filter sparc64 ppc64 ppc64le x86_64 s390x aarch64 riscv64,$(shell uname -m)))
+ LIBDIR = lib64
+ else
+ LIBDIR = lib
